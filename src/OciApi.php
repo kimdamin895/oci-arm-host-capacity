@@ -54,15 +54,12 @@ class OciApi
         }
 
         // Validate SSH key if provided
-        $sshKey = $sshKey ? trim($sshKey) : null;
-        if ($sshKey !== null && $sshKey !== '') {
-            if (substr($sshKey, 0, 4) !== 'ssh-') {
-                throw new \InvalidArgumentException(
-                    'Invalid SSH public key format. SSH public key must start with "ssh-" (e.g., ssh-rsa, ssh-ed25519)'
-                );
-            }
-        } else {
-            $sshKey = null;
+        $sshKey = $sshKey !== null ? trim($sshKey) : null;
+        $sshKey = $sshKey !== '' ? $sshKey : null;
+        if ($sshKey !== null && substr($sshKey, 0, 4) !== 'ssh-') {
+            throw new \InvalidArgumentException(
+                'Invalid SSH public key format. SSH public key must start with "ssh-" (e.g., ssh-rsa, ssh-ed25519)'
+            );
         }
 
         $displayName = 'instance-' . date('Ymd-Hi');

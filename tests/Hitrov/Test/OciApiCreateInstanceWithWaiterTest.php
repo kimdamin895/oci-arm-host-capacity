@@ -36,7 +36,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
 
         $this->expectException(TooManyRequestsWaiterException::class);
         $this->expectExceptionMessage('Will retry after 10 seconds');
-        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
     }
 
     public function testWhenNotSet(): void
@@ -49,7 +49,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
             ->method('call')
             ->willReturn([]);
 
-        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
     }
 
     public function testWhenNotConfigured(): void
@@ -66,7 +66,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
 
         $mock->setWaiter($waiter);
 
-        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
     }
 
     public function testTimePassedFileRemoved(): void
@@ -85,7 +85,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
 
         file_put_contents($this->getFilename(), time() - 10);
 
-        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
         $this->assertFalse(file_exists($this->getFilename()));
     }
 
@@ -103,7 +103,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
         $mock->setWaiter($waiter);
 
         $this->expectException(ApiCallException::class);
-        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
     }
 
     public function testTooManyRequestsHttpCode(): void
@@ -121,7 +121,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
         $mock->setWaiter($waiter);
 
         $this->expectException(TooManyRequestsWaiterException::class);
-        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
     }
 
     public function testTooManyRequestsMessage(): void
@@ -139,7 +139,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
         $mock->setWaiter($waiter);
 
         $this->expectException(TooManyRequestsWaiterException::class);
-        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+        $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
     }
 
     public function testSecondsRemainingAfterTooManyRequests(): void
@@ -156,7 +156,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
         $mock->setWaiter($waiter);
 
         try {
-            $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+            $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
         } catch (TooManyRequestsWaiterException $e) {
 
         } finally {
@@ -178,7 +178,7 @@ class OciApiCreateInstanceWithWaiterTest extends TestCase
         $mock->setWaiter($waiter);
 
         try {
-            $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com', 'ad');
+            $mock->createInstance($this->getDefaultConfig(), 'foo', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com', 'ad');
         } catch (TooManyRequestsWaiterException $e) {
 
         } finally {

@@ -69,7 +69,7 @@ class OciApiSshKeyTest extends TestCase
      */
     public function testCreateInstanceWithValidSshKey(): void
     {
-        $sshKey = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com';
+        $sshKey = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com';
         
         $mock = $this->getMockBuilder(OciApi::class)
             ->onlyMethods(['call'])
@@ -182,8 +182,8 @@ class OciApiSshKeyTest extends TestCase
      */
     public function testCreateInstanceTrimsSshKey(): void
     {
-        $sshKeyWithSpaces = '  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com  ';
-        $trimmedSshKey = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ test@example.com';
+        $sshKeyWithSpaces = '  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com  ';
+        $trimmedSshKey = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGJeJvUx8YNhzuPzLKTvXJFMfLbPVvLfYh1K+QI0Q4F test@example.com';
         
         $mock = $this->getMockBuilder(OciApi::class)
             ->onlyMethods(['call'])
