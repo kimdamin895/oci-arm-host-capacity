@@ -1,0 +1,36 @@
+name: OCI ARM Instance
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          
+      - name: Install dependencies
+        run: composer install
+        
+      - name: Create .env file
+        run: |
+          echo "OCI_REGION=${{ secrets.OCI_CLI_REGION }}" >> .env
+          echo "OCI_USER_ID=${{ secrets.OCI_CLI_USER }}" >> .env
+          echo "OCI_TENANCY_ID=${{ secrets.OCI_CLI_TENANCY }}" >> .env
+          echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI_CLI_FINGERPRINT }}" >> .env
+          echo "OCI_PRIVATE_KEY_BASE64=$(echo '${{ secrets.OCI_CLI_KEY_CONTENT }}' | base64 -w 0)" >> .env
+          echo "OCI_AVAILABILITY_DOMAIN=${{ secrets.OCI_AVAILABILITY_DOMAIN }}" >> .env
+          echo "OCI_SUBNET_ID=${{ secrets.OCI_SUBNET_ID }}" >> .env
+          echo "OCI_IMAGE_ID=${{ secrets.OCI_IMAGE_ID }}" >> .env
+          echo "OCI_OCPUS=${{ secrets.OCI_OCPUS }}" >> .env
+          echo "OCI_MEMORY_IN_GBS=${{ secrets.OCI_MEMORY_IN_GBS }}" >> .env
+          
+      - name: Run script
+        run: php index.php
