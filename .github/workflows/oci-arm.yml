@@ -36,6 +36,7 @@ jobs:
           echo "OCI_IMAGE_ID=${{ secrets.OCI_IMAGE_ID }}" >> .env
           echo "OCI_OCPUS=${{ secrets.OCI_OCPUS }}" >> .env
           echo "OCI_MEMORY_IN_GBS=${{ secrets.OCI_MEMORY_IN_GBS }}" >> .env
+          echo "OCI_SHAPE=${{ secrets.OCI_SHAPE }}" >> .env
 
       - name: Run script
         run: php index.php
