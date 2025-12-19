@@ -25,7 +25,7 @@ class OciApi
     /**
      * @param OciConfig $config
      * @param string $shape
-     * @param string $sshKey
+     * @param string|null $sshKey
      * @param string $availabilityDomain
      * @return array
      *
@@ -39,7 +39,7 @@ class OciApi
     public function createInstance(
         OciConfig $config,
         string $shape,
-        string $sshKey,
+        ?string $sshKey,
         string $availabilityDomain
     ): array
     {
@@ -53,13 +53,27 @@ class OciApi
             $this->waiter->remove();
         }
 
+        // Validate SSH key if provided
+        $sshKey = $sshKey !== null ? trim($sshKey) : null;
+        $sshKey = $sshKey !== '' ? $sshKey : null;
+        if ($sshKey !== null && substr($sshKey, 0, 4) !== 'ssh-') {
+            throw new \InvalidArgumentException(
+                'Invalid SSH public key format. SSH public key must start with "ssh-" (e.g., ssh-rsa, ssh-ed25519)'
+            );
+        }
+
         $displayName = 'instance-' . date('Ymd-Hi');
+
+        // Build metadata with optional SSH key
+        $metadata = [];
+        if ($sshKey !== null) {
+            $metadata['ssh_authorized_keys'] = $sshKey;
+        }
+        $metadataJson = empty($metadata) ? '{}' : json_encode($metadata, JSON_UNESCAPED_SLASHES);
 
         $body = <<<EOD
 {
-    "metadata": {
-        "ssh_authorized_keys": "$sshKey"
-    },
+    "metadata": $metadataJson,
     "shape": "$shape",
     "compartmentId": "{$config->tenancyId}",
     "displayName": "$displayName",

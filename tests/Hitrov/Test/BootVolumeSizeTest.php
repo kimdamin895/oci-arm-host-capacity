@@ -21,6 +21,7 @@ class BootVolumeSizeTest extends BootVolumeIdTest
         $this->expectExceptionMessageMatches('/"code": "QuotaExceeded",\n\s+"message": ".*Service limit reached/');
 
         self::$config->setBootVolumeSizeInGBs(getenv('OCI_BOOT_VOLUME_SIZE_IN_GBS'));
-        $instance = self::$api->createInstance(self::$config, getenv('OCI_SHAPE'), getenv('OCI_SSH_PUBLIC_KEY'), getenv('OCI_AVAILABILITY_DOMAIN'));
+        $sshKey = getenv('OCI_SSH_PUBLIC_KEY');
+        $instance = self::$api->createInstance(self::$config, getenv('OCI_SHAPE'), $sshKey !== false ? $sshKey : null, getenv('OCI_AVAILABILITY_DOMAIN'));
     }
 }
