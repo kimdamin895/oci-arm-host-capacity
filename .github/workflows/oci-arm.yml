@@ -2,7 +2,7 @@ name: OCI ARM Instance1
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
-          
+          php-version: "8.3"
+
       - name: Install dependencies
         run: composer install
-        
+
       - name: Create Private Key file
         run: |
           echo '${{ secrets.OCI_CLI_KEY_CONTENT }}' > /tmp/oci_private_key.pem
           chmod 600 /tmp/oci_private_key.pem
-          
+
       - name: Create .env file
         run: |
           echo "OCI_REGION=${{ secrets.OCI_CLI_REGION }}" >> .env
@@ -36,17 +36,6 @@ jobs:
           echo "OCI_IMAGE_ID=${{ secrets.OCI_IMAGE_ID }}" >> .env
           echo "OCI_OCPUS=${{ secrets.OCI_OCPUS }}" >> .env
           echo "OCI_MEMORY_IN_GBS=${{ secrets.OCI_MEMORY_IN_GBS }}" >> .env
-          
+
       - name: Run script
         run: php index.php
-```
-
----
-
-## 수정 방법
-```
-Code 탭
-→ .github/workflows/oci-arm.yml 클릭
-→ 연필 아이콘 (Edit) 클릭
-→ 위 내용으로 교체
-→ Commit changes
