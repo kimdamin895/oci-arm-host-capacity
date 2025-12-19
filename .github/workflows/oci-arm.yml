@@ -19,13 +19,18 @@ jobs:
       - name: Install dependencies
         run: composer install
         
+      - name: Create Private Key file
+        run: |
+          echo '${{ secrets.OCI_CLI_KEY_CONTENT }}' > /tmp/oci_private_key.pem
+          chmod 600 /tmp/oci_private_key.pem
+          
       - name: Create .env file
         run: |
           echo "OCI_REGION=${{ secrets.OCI_CLI_REGION }}" >> .env
           echo "OCI_USER_ID=${{ secrets.OCI_CLI_USER }}" >> .env
           echo "OCI_TENANCY_ID=${{ secrets.OCI_CLI_TENANCY }}" >> .env
           echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI_CLI_FINGERPRINT }}" >> .env
-          echo "OCI_PRIVATE_KEY_BASE64=$(echo '${{ secrets.OCI_CLI_KEY_CONTENT }}' | base64 -w 0)" >> .env
+          echo "OCI_PRIVATE_KEY_FILENAME=/tmp/oci_private_key.pem" >> .env
           echo "OCI_AVAILABILITY_DOMAIN=${{ secrets.OCI_AVAILABILITY_DOMAIN }}" >> .env
           echo "OCI_SUBNET_ID=${{ secrets.OCI_SUBNET_ID }}" >> .env
           echo "OCI_IMAGE_ID=${{ secrets.OCI_IMAGE_ID }}" >> .env
@@ -34,3 +39,14 @@ jobs:
           
       - name: Run script
         run: php index.php
+```
+
+---
+
+## 수정 방법
+```
+Code 탭
+→ .github/workflows/oci-arm.yml 클릭
+→ 연필 아이콘 (Edit) 클릭
+→ 위 내용으로 교체
+→ Commit changes
