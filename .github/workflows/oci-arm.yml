@@ -1,4 +1,4 @@
-name: OCI ARM Instance1
+name: OCI ARM Instance
 
 on:
   schedule:
